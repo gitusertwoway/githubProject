@@ -1,0 +1,148 @@
+﻿http://cloudtu.blogspot.tw/2012/08/git-command-fast-memo.html
+
+1.help
+	git help [cmd]
+	-連線HTTP說明
+	git help log
+2.configuration
+	-列出configuration清單
+		git config --global -l
+	-設定configuration
+		git config --global user.name "my_name"
+		git config --global user.email "my_name@email.com"
+	-讓git可以正確處理中文，還得設定一下 git 的全域參數
+		git config --global gui.encoding utf-8
+		
+3.初始化repository
+	-initial repository with working directory
+		git init .
+	-initial repository without working directory
+		git init --bare
+		git init --bare 
+	-以建立一個空的版本庫
+		git init MyProject
+		
+4.查看repository裡未commit檔案的狀態
+		git status
+		
+5.同時增刪改working directory裡的檔案，然後commit到repository
+		git add .
+		git commit -a -m "commit message"
+		
+6.設定 .gitignore 檔案
+		https://github.com/github/gitignore
+		
+7.未commit前看檔案內容差異
+	-看所有檔案內容差異
+		git diff
+	-看特定檔案內容差異
+		git diff [file_name]
+		
+8.commit後看檔案內容差異
+	-看這次commit裡所有檔案內容差異
+		git show
+	-看上一次commit裡所有檔案內容差異
+		git show HEAD^
+	-看這次commit裡特定檔案內容差異
+		git show [file_name]
+		
+9.查commit log
+	-查目前branch的所有log
+		git log
+	-查目前branch特定檔案的log
+		git log [file_name]
+	-查看所有branch與tag的log tree
+		git log --graph --decorate --all
+		
+10.檔案改爛了，想恢復成前未修改前的樣子
+	-還沒commit之前，特定檔案要改成未修改前的樣子
+		git checkout [file_name]
+	-還沒commit之前，所有檔案要改成未修改前的樣子
+		git reset --hard
+	-已經commit之後，所有檔案要改成未修改前的樣子
+		git reset --hard HEAD^
+		
+11.branch
+	-列出所有branch
+		git branch -a
+	-建立特定branch
+		git branch [branch_name]
+	-切換到特定branch
+		git checkout [branch_name]
+	-刪除特定branch
+		git branch -d [branch_name]
+		
+12.tag
+	-列出所有tag
+		git tag
+	-建立特定tag
+		git tag [tag_name]
+	-刪除特定tag
+		git tag -d [tag_name]
+		
+13.merge demo
+	git checkout master
+	git merge branch1
+	
+14.rebase demo
+	git checkout branch1
+	git rebase master
+	
+15.remote
+	-顯示remote明細
+		git remote -v
+	-建立remote設定
+		git remote add origin https://IP Localtion/git
+	-刪除remote設定
+		git remote rm origin
+16.push&pull
+	-push所有branch與tag
+		git push --all origin
+		git push --tags origin
+	-pull所有branch與tag
+		git pull origin
+	-push特定branch
+		git push origin master
+	-pull特定branch
+		git pull origin master
+	-push&pull弄爛了，想要回到未push&pull前的那一版
+		git reset --hard HEAD^
+17.clone
+	-demo
+		git clone https://github.com/cloudtu/git-demo.git git-demo
+	-clone回來的資料在local branch裡只有master，想要其它的local branch要自己建
+		git checkout origin/branch1 -b branch1
+	-把版本庫複製（clone）一份回自己本機，開啟 Git Bash 視窗，切換到你打算存放
+ 	 本機版本庫的目錄，然後使用 git clone 把檔案庫拉回來。	
+		$ cd d:/Work
+		$ git clone http://localhost:8080/MyProject
+
+18.要把所有檔案都加入staged狀態，執行：
+	
+	git add -A 或
+	git add .
+
+19.要把個別的檔案加入staged，執行：
+	git add 主檔名.副檔名
+
+20.如果有些檔案你不想要再讓它受到版本控制了，也就是要把它unstage，那可以執行：
+	git reset 主檔名.副檔名
+
+21.好的，現在確定好要commit第一版程式碼了，所以可以執行：
+	git commit -m ‘Initial commit’
+
+22.Check your git version
+	git --version
+
+23.新增、重新命名資料夾
+	mv oldfolder newfolder
+  	git add newfolder
+	git remove oldfolder
+  -How to use
+  -Assuming you’d like to change a folder’s name from oldfolder to newfolder
+	git mv oldfolder newfolder
+  -If there’s already a newfolder in your repo and you’d like to overwrite it use –force
+	git mv -f oldfolder newfolder
+  -Do not forget: you have to add the changes to the index and commit them after renaming with git mv.
+	git add -u newfolder
+	git commit -m "changed the foldername whaddup"
